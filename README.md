@@ -1,2 +1,2 @@
 # AutoArchiver
-Automatically archives files older than month
+Automatically archives old files
