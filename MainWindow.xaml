@@ -11,7 +11,8 @@
             <ColumnDefinition Width="20"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="107*"/>
+            <ColumnDefinition Width="431*"/>
             <ColumnDefinition Width="20"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -22,8 +23,21 @@
             <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="title" Grid.Column="1" Grid.Row="1" Text="Auto Archiver v.0.1.0" FontFamily="Segoe UI"/>
+        <TextBox x:Name="textBox" Grid.Column="1" Grid.Row="1" Text="TextBlock" 
+                 MouseEnter="TextBlock_MouseEnter" MouseLeave="textBox_MouseLeave" 
+                 MouseDoubleClick="textBox_MouseDoubleClick" IsReadOnly="True" 
+                 LostFocus="textBox_LostFocus" Grid.ColumnSpan="2" Margin="0,0,117,34" Grid.RowSpan="2" />
+
+        <TextBox Grid.Column="2" Grid.Row="2" Text="TextBlock2" Margin="0,0,0,326" Grid.RowSpan="2"/>
+
+
+        <Button x:Name="button" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Content="Zapisz" Width="120" Height="50" />
+        <!--<TextBlock x:Name="title" Grid.Column="1" Grid.Row="1" Text="Auto Archiver v.0.1.0" FontFamily="Segoe UI"/>
         <Button x:Name="copyButton" FontSize="20" Height="30" Width="100" Grid.Column="1" Grid.Row="2" Content="Copy" Click="copyButton_Click"/>
-        <TextBox x:Name="textBox" Grid.Column="2" Grid.Row="2" MinWidth="100" Margin="10"/>
+        <TextBox x:Name="textBox" Grid.Column="2" Grid.Row="2" MinWidth="100" Margin="10"/>-->
+
+
+
+
     </Grid>
 </Window>

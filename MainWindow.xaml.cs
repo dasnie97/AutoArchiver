@@ -25,9 +25,27 @@ namespace AutoArchiver
             InitializeComponent();
         }
 
-        private void copyButton_Click(object sender, RoutedEventArgs e)
+        private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
         {
-            title.Text = textBox.Text;
+            var background = "#FFE2DADA";
+            Color color = (Color)ColorConverter.ConvertFromString(background);
+            var brush = new SolidColorBrush(color);
+            textBox.Background = brush;
+        }
+
+        private void textBox_MouseLeave(object sender, MouseEventArgs e)
+        {
+            textBox.Background = null;
+        }
+
+        private void textBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            textBox.IsReadOnly = false;
+        }
+
+        private void textBox_LostFocus(object sender, RoutedEventArgs e)
+        {
+            textBox.IsReadOnly = true;
         }
     }
 }
