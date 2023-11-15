@@ -4,40 +4,149 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoArchiver"
-        mc:Ignorable="d" FontSize="24"
-        Title="AutoArchiver" Height="450" Width="800">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="107*"/>
-            <ColumnDefinition Width="431*"/>
-            <ColumnDefinition Width="20"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="20"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="20"/>
-        </Grid.RowDefinitions>
+        mc:Ignorable="d"
+        Title="AutoArchiver" Height="500" Width="800">
 
-        <TextBox x:Name="textBox" Grid.Column="1" Grid.Row="1" Text="TextBlock" 
-                 MouseEnter="TextBlock_MouseEnter" MouseLeave="textBox_MouseLeave" 
-                 MouseDoubleClick="textBox_MouseDoubleClick" IsReadOnly="True" 
-                 LostFocus="textBox_LostFocus" Grid.ColumnSpan="2" Margin="0,0,117,34" Grid.RowSpan="2" />
+    <Border Padding="10">
 
-        <TextBox Grid.Column="2" Grid.Row="2" Text="TextBlock2" Margin="0,0,0,326" Grid.RowSpan="2"/>
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Border  Grid.Row="0" BorderBrush="Black" BorderThickness="1" Padding="5">
+                <Grid>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="3*"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Padding="3" FontSize="13" Text="Archiwizowane ścieżki" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                    <Button Width="70" Height="28" FontSize="17" Grid.Column="7" Content="Dodaj"></Button>
+
+                    <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7">
+                        <StackPanel>
+                            <TextBox x:Name="textBox1" Text="TextBlock" 
+                    MouseEnter="TextBlock_MouseEnter" MouseLeave="textBox_MouseLeave" 
+                    MouseDoubleClick="textBox_MouseDoubleClick" IsReadOnly="True" 
+                    LostFocus="textBox_LostFocus"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                </Grid>
+            </Border>
+
+            <Border Margin="0 5" Grid.Row="1" BorderBrush="Black" BorderThickness="1" Padding="5">
+                <Grid >
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0 0 1 0">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+                            
+                            <TextBlock Padding="1" FontSize="13" Text="Archiwizowane rozszerzenia" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                            <Button FontSize="17" Width="70" Height="28" Grid.Column="2" Grid.Row="0" Content="Dodaj"/>
+
+                            <CheckBox Content="*.pdf" Grid.Column="0" Grid.Row="1"/>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Padding="5" Grid.Column="1" BorderBrush="Black" BorderThickness="0 0 1 0">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Padding="1" FontSize="13" Text="Archiwizuj pliki starsze niż" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                            <ComboBox FontSize="17" SelectedIndex="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                <ComboBoxItem>Tydzień</ComboBoxItem>
+                                <ComboBoxItem>Miesiąc</ComboBoxItem>
+                            </ComboBox>
+
+                        </Grid>
+                    </Border>
+
+                    <Border Padding="5" Grid.Column="2" BorderBrush="Black" BorderThickness="0 0 0 0">
+                        <Grid>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Padding="1" FontSize="13" Text="Twórz archiwa zgodnie z" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                            <ComboBox FontSize="17" SelectedIndex="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
+                                <ComboBoxItem>Tygodniem</ComboBoxItem>
+                                <ComboBoxItem>Miesiącem</ComboBoxItem>
+                            </ComboBox>
+
+                        </Grid>
+                    </Border>
+
+                </Grid>
+            </Border>
+
+            <Border Margin="0 5" Grid.Row="2" BorderBrush="Black" BorderThickness="1" Padding="5">
+
+                <Button Width="70" Height="28" FontSize="17" Content="Zapisz"/>
+
+            </Border>
 
 
-        <Button x:Name="button" Grid.Column="1" Grid.ColumnSpan="4" Grid.Row="3" Content="Zapisz" Width="120" Height="50" />
-        <!--<TextBlock x:Name="title" Grid.Column="1" Grid.Row="1" Text="Auto Archiver v.0.1.0" FontFamily="Segoe UI"/>
-        <Button x:Name="copyButton" FontSize="20" Height="30" Width="100" Grid.Column="1" Grid.Row="2" Content="Copy" Click="copyButton_Click"/>
-        <TextBox x:Name="textBox" Grid.Column="2" Grid.Row="2" MinWidth="100" Margin="10"/>-->
+        </Grid>
 
-
-
-
-    </Grid>
+    </Border>
 </Window>

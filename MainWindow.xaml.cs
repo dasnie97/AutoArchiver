@@ -30,22 +30,22 @@ namespace AutoArchiver
             var background = "#FFE2DADA";
             Color color = (Color)ColorConverter.ConvertFromString(background);
             var brush = new SolidColorBrush(color);
-            textBox.Background = brush;
+            textBox1.Background = brush;
         }
 
         private void textBox_MouseLeave(object sender, MouseEventArgs e)
         {
-            textBox.Background = null;
+            textBox1.Background = null;
         }
 
         private void textBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            textBox.IsReadOnly = false;
+            textBox1.IsReadOnly = false;
         }
 
         private void textBox_LostFocus(object sender, RoutedEventArgs e)
         {
-            textBox.IsReadOnly = true;
+            textBox1.IsReadOnly = true;
         }
     }
 }
