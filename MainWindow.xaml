@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoArchiver"
         mc:Ignorable="d"
-        Title="AutoArchiver" Height="500" Width="800">
+        Title="AutoArchiver" Height="500" Width="800" Loaded="Window_Loaded">
 
     <Border Padding="10">
 
@@ -39,7 +39,7 @@
                     <Button Width="70" Height="28" FontSize="17" Grid.Column="7" Content="Dodaj"></Button>
 
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7">
-                        <StackPanel>
+                        <StackPanel x:Name="Test">
                             <TextBox x:Name="textBox1" Text="TextBlock" 
                     MouseEnter="TextBlock_MouseEnter" MouseLeave="textBox_MouseLeave" 
                     MouseDoubleClick="textBox_MouseDoubleClick" IsReadOnly="True" 
