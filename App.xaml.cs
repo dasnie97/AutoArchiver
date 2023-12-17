@@ -1,13 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.Extensions.Hosting;
 using System.Windows;
+using Serilog;
 
 namespace AutoArchiver
 {
@@ -16,31 +11,27 @@ namespace AutoArchiver
     /// </summary>
     public partial class App : Application
     {
-        public IServiceProvider ServiceProvider { get; private set; }
-        public IConfiguration Configuration { get; private set; }
-
         protected override void OnStartup(StartupEventArgs e)
         {
-            var builder = new ConfigurationBuilder()
-             .SetBasePath(Directory.GetCurrentDirectory())
-             .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
-
-            Configuration = builder.Build();
-
-            var serviceCollection = new ServiceCollection();
-            ConfigureServices(serviceCollection);
-
-            ServiceProvider = serviceCollection.BuildServiceProvider();
-
-            var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
-            mainWindow.Show();
+            HostApplicationBuilder builder = CreateApplicationHostBuilder();
+            IHost host = builder.Build();
+            host.Run();
         }
 
-        private void ConfigureServices(IServiceCollection services)
+        private static HostApplicationBuilder CreateApplicationHostBuilder()
         {
-            // ...
+            var builder = Host.CreateApplicationBuilder();
+            builder.Configuration.Sources.Clear();
+            builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+            builder.Services.AddTransient<IHostedService, MainWindow>();
+            builder.Services.AddSerilog(config =>
+            {
+                config.ReadFrom.Configuration(builder.Configuration);
+                config.Enrich.FromLogContext();
+                config.WriteTo.File("logs/log.txt", rollingInterval: RollingInterval.Day);
+            });
 
-            services.AddTransient(typeof(MainWindow));
+            return builder;
         }
     }
 }
