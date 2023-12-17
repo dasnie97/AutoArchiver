@@ -1,7 +1,12 @@
-﻿using System;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,11 +23,20 @@ namespace AutoArchiver
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, IHostedService
     {
-        public MainWindow()
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<MainWindow> _logger;
+        private readonly IHostApplicationLifetime _applicationLifetime;
+
+        public MainWindow(  IConfiguration configuration,
+                            ILogger<MainWindow> logger,
+                            IHostApplicationLifetime applicationLifetime)
         {
             InitializeComponent();
+            _configuration = configuration;
+            _logger = logger;
+            _applicationLifetime = applicationLifetime;
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
@@ -46,6 +60,35 @@ namespace AutoArchiver
         private void textBox_LostFocus(object sender, RoutedEventArgs e)
         {
             textBox1.IsReadOnly = true;
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            var textBox = new TextBox();
+            var directoryConfig = _configuration.GetSection("DirectoryConfig");
+            string inputDir = directoryConfig.GetValue<string>("InputDir");
+            textBox.Text = "";
+            
+            Test.Children.Add(textBox);
+
+
+        }
+
+        protected override void OnClosing(CancelEventArgs e)
+        {
+            base.OnClosing(e);
+            _applicationLifetime.StopApplication();
+        }
+
+        public Task StartAsync(CancellationToken cancellationToken)
+        {
+            ShowDialog();
+            return Task.CompletedTask;
+        }
+
+        public Task StopAsync(CancellationToken cancellationToken)
+        {
+            return Task.CompletedTask;
         }
     }
 }
