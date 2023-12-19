@@ -3,6 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using Serilog;
+using AutoArchiver.Helpers;
 
 namespace AutoArchiver
 {
@@ -24,6 +25,7 @@ namespace AutoArchiver
             builder.Configuration.Sources.Clear();
             builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
             builder.Services.AddTransient<IHostedService, MainWindow>();
+            builder.Services.AddTransient<IAppSettingsManager, AppSettingsManager>();
             builder.Services.AddSerilog(config =>
             {
                 config.ReadFrom.Configuration(builder.Configuration);

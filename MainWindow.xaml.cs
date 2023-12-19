@@ -1,22 +1,14 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using AutoArchiver.Helpers;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace AutoArchiver
 {
@@ -28,15 +20,18 @@ namespace AutoArchiver
         private readonly IConfiguration _configuration;
         private readonly ILogger<MainWindow> _logger;
         private readonly IHostApplicationLifetime _applicationLifetime;
+        private readonly IAppSettingsManager _appSettingsManager;
 
         public MainWindow(  IConfiguration configuration,
                             ILogger<MainWindow> logger,
-                            IHostApplicationLifetime applicationLifetime)
+                            IHostApplicationLifetime applicationLifetime,
+                            IAppSettingsManager appSettingsManager)
         {
             InitializeComponent();
             _configuration = configuration;
             _logger = logger;
             _applicationLifetime = applicationLifetime;
+            _appSettingsManager = appSettingsManager;
         }
 
         private void TextBlock_MouseEnter(object sender, MouseEventArgs e)
@@ -65,12 +60,18 @@ namespace AutoArchiver
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             var textBox = new TextBox();
-            var directoryConfig = _configuration.GetSection("DirectoryConfig");
-            string inputDir = directoryConfig.GetValue<string>("InputDir");
             textBox.Text = "";
             
             Test.Children.Add(textBox);
 
+            var inputDir1 = _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories;
+
+            _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories.Add("Dupa");
+            _appSettingsManager.SaveAppSettings();
+
+            inputDir1 = _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories;
+
+            //JsonSerializer.Deserialize<AppSettings>(_configuration.ToString())
 
         }
 
