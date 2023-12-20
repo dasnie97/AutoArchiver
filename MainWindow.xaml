@@ -36,7 +36,7 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock Padding="3" FontSize="13" Text="Archiwizowane ścieżki" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                    <Button Width="70" Height="28" FontSize="17" Grid.Column="7" Content="Dodaj"></Button>
+                    <Button x:Name="AddPathButton" Width="70" Height="28" FontSize="17" Grid.Column="7" Content="Dodaj" Click="AddPathButton_Click"></Button>
 
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7">
                         <StackPanel x:Name="Test">
@@ -101,11 +101,10 @@
                             </Grid.RowDefinitions>
 
                             <TextBlock Padding="1" FontSize="13" Text="Archiwizuj pliki starsze niż" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-
-                            <ComboBox FontSize="17" SelectedIndex="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                                <ComboBoxItem>Tydzień</ComboBoxItem>
-                                <ComboBoxItem>Miesiąc</ComboBoxItem>
-                            </ComboBox>
+                            <TextBox FontSize="17" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" HorizontalContentAlignment="Center">
+                            30
+                            </TextBox>
+                            <TextBlock Padding="9 3" FontSize="17" Text="dni" Grid.Row="1" Grid.Column="1"/>
 
                         </Grid>
                     </Border>
