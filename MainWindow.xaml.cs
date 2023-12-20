@@ -64,12 +64,12 @@ namespace AutoArchiver
             
             Test.Children.Add(textBox);
 
-            var inputDir1 = _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories;
+            var inputDir1 = _appSettingsManager.GetAppSettings().Config.Directories.Input;
 
-            _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories.Add("Dupa");
+            _appSettingsManager.GetAppSettings().Config.Directories.Input.Add("Dupa");
             _appSettingsManager.SaveAppSettings();
 
-            inputDir1 = _appSettingsManager.GetAppSettings().DirectoryConfig.InputDirectories;
+            inputDir1 = _appSettingsManager.GetAppSettings().Config.Directories.Input;
 
             //JsonSerializer.Deserialize<AppSettings>(_configuration.ToString())
 
@@ -90,6 +90,14 @@ namespace AutoArchiver
         public Task StopAsync(CancellationToken cancellationToken)
         {
             return Task.CompletedTask;
+        }
+
+        private void AddPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox textBox = new TextBox();
+            textBox.Text = "Text Box2";
+
+            Test.Children.Add(textBox) ;
         }
     }
 }

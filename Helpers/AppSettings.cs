@@ -2,9 +2,18 @@
 
 namespace AutoArchiver.Helpers;
 
-public class DirectoryConfig
+public class Config
 {
-    public List<string> InputDirectories { get; set; }
+    public Directories Directories { get; set; }
+    public List<string> Extensions { get; set; }
+    public int ArchiveTime { get; set; }
+    public List<string> ArchivePathOptions { get; set; }
+    public string ArchivePath { get; set; }
+}
+
+public class Directories
+{
+    public List<string> Input { get; set; }
 }
 
 public class MinimumLevel
@@ -22,7 +31,7 @@ public class Override
 public class AppSettings
 {
     public Serilog Serilog { get; set; }
-    public DirectoryConfig DirectoryConfig { get; set; }
+    public Config Config { get; set; }
 }
 
 public class Serilog
