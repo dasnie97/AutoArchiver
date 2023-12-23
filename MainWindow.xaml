@@ -40,10 +40,6 @@
 
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7">
                         <StackPanel x:Name="Test">
-                            <TextBox x:Name="textBox1" Text="TextBlock" 
-                    MouseEnter="TextBlock_MouseEnter" MouseLeave="textBox_MouseLeave" 
-                    MouseDoubleClick="textBox_MouseDoubleClick" IsReadOnly="True" 
-                    LostFocus="textBox_LostFocus"/>
                         </StackPanel>
                     </ScrollViewer>
 
