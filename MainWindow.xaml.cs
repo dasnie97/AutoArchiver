@@ -1,4 +1,5 @@
 ﻿using AutoArchiver.Helpers;
+using AutoArchiver.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -20,6 +21,8 @@ namespace AutoArchiver
         private readonly IHostApplicationLifetime _applicationLifetime;
         private readonly IAppSettingsManager _appSettingsManager;
 
+        #region Ctor
+
         public MainWindow(  IConfiguration configuration,
                             ILogger<MainWindow> logger,
                             IHostApplicationLifetime applicationLifetime,
@@ -32,18 +35,63 @@ namespace AutoArchiver
             _appSettingsManager = appSettingsManager;
         }
 
+        #endregion
+
+        #region Events
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            var inputDir1 = _appSettingsManager.GetAppSettings().Config.Directories.Input;
-
-            _appSettingsManager.GetAppSettings().Config.Directories.Input.Add("Dupa");
-            _appSettingsManager.SaveAppSettings();
-
-            inputDir1 = _appSettingsManager.GetAppSettings().Config.Directories.Input;
-
-            //JsonSerializer.Deserialize<AppSettings>(_configuration.ToString())
-
+            LoadConfigurationFromAppSettings();
         }
+
+        private void AddPathButton_Click(object sender, RoutedEventArgs e)
+        {
+            string chosenPath = FileBrowserDialog.ChooseFolderUsingFolderExplorer();
+            if (chosenPath == string.Empty)
+            {
+                return;
+            }
+            CreateNewArchivePath(chosenPath);
+        }
+
+        private void AddExtensionButton_Click(object sender, RoutedEventArgs e)
+        {
+            popup.IsOpen = true;
+            //CreateNewArchiveExtension("Ext");
+        }
+
+        private void FileExplorerButtonClick(object sender, RoutedEventArgs e)
+        {
+            Button button = (Button)sender;
+            Grid grid = (Grid)button.Parent;
+            TextBox textBox = (TextBox)grid.Children[0];
+
+            string chosenPath = FileBrowserDialog.ChooseFolderUsingFolderExplorer();
+            if (chosenPath != string.Empty)
+            {
+                textBox.Text = chosenPath;
+            }
+        }
+
+        private void RemoveGrid(object sender, RoutedEventArgs e)
+        {
+            FrameworkElement element = (FrameworkElement)sender;
+            Grid grid = (Grid)element.Parent;
+            if (grid.Parent != null)
+            {
+                Panel panel = (Panel)grid.Parent;
+                panel.Children.Remove(grid);
+            }
+        }
+
+        private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveConfigurationToAppSettings();
+        }
+
+        #endregion
+
+        #region IHost
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -62,14 +110,12 @@ namespace AutoArchiver
             return Task.CompletedTask;
         }
 
-        private void AddPathButton_Click(object sender, RoutedEventArgs e)
-        {
-            string chosenPath = FileBrowserDialog.ChooseFolderUsingFolderExplorer();
-            if (chosenPath == string.Empty)
-            {
-                return;
-            }
+        #endregion
 
+        #region Privates
+
+        private void CreateNewArchivePath(string chosenPath)
+        {
             Grid grid = new Grid();
 
             ColumnDefinition pathColumn = new ColumnDefinition();
@@ -98,7 +144,7 @@ namespace AutoArchiver
             removePathButton.Width = 40;
             removePathButton.Height = 20;
             removePathButton.Content = "Usun";
-            removePathButton.Click += RemovePathButtonClick;
+            removePathButton.Click += RemoveGrid;
 
             grid.Children.Add(pathTextBox);
             grid.Children.Add(fileExplorerButton);
@@ -107,28 +153,85 @@ namespace AutoArchiver
             Grid.SetColumn(pathTextBox, 0);
             Grid.SetColumn(fileExplorerButton, 1);
             Grid.SetColumn(removePathButton, 2);
-                        
-            Test.Children.Add(grid);
+
+            ArchivePathsStackPanel.Children.Add(grid);
         }
 
-        private void FileExplorerButtonClick(object sender, RoutedEventArgs e)
+        private void CreateNewArchiveExtension(string extension)
         {
-            Button button = (Button)sender;
-            Grid grid = (Grid)button.Parent;
-            TextBox textBox = (TextBox)grid.Children[0];
+            Grid grid = new Grid();
 
-            string chosenPath = FileBrowserDialog.ChooseFolderUsingFolderExplorer();
-            if (chosenPath != string.Empty)
+            ColumnDefinition pathColumn = new ColumnDefinition();
+            ColumnDefinition removeExtensionCheckboxColumn = new ColumnDefinition();
+
+            pathColumn.Width = new GridLength(5, GridUnitType.Star);
+            removeExtensionCheckboxColumn.Width = new GridLength(1, GridUnitType.Star);
+
+            grid.ColumnDefinitions.Add(pathColumn);
+            grid.ColumnDefinitions.Add(removeExtensionCheckboxColumn);
+
+            CheckBox extenstionCheckBox = new CheckBox();
+            extenstionCheckBox.Content = extension;
+
+            Button removeExtensionButton = new Button();
+            removeExtensionButton.Width = 30;
+            removeExtensionButton.Height = 19;
+            removeExtensionButton.Content = "Usun";
+            removeExtensionButton.Click += RemoveGrid;
+
+            grid.Children.Add(extenstionCheckBox);
+            grid.Children.Add(removeExtensionButton);
+
+            Grid.SetColumn(extenstionCheckBox, 0);
+            Grid.SetColumn(removeExtensionButton, 1);
+
+            ArchiveExtensionsStackPanel.Children.Add(grid);
+        }
+
+        private void SaveConfigurationToAppSettings()
+        {
+            _appSettingsManager.GetAppSettings().Config.Directories.Input.Clear();
+            _appSettingsManager.GetAppSettings().Config.Extensions.Clear();
+
+            foreach (Grid grid in ArchivePathsStackPanel.Children)
             {
-                textBox.Text = chosenPath;
+                TextBox pathTextBox = (TextBox)grid.Children[0];
+                _appSettingsManager.GetAppSettings().Config.Directories.Input.Add(pathTextBox.Text);
+            }
+
+            foreach (Grid grid in ArchiveExtensionsStackPanel.Children)
+            {
+                CheckBox archiveCheckBox = (CheckBox)grid.Children[0];
+                _appSettingsManager.GetAppSettings().Config.Extensions.Add((string)archiveCheckBox.Content);
+            }
+
+            _appSettingsManager.SaveAppSettings();
+        }
+
+        private void LoadConfigurationFromAppSettings()
+        {
+            foreach (string value in _appSettingsManager.GetAppSettings().Config.Directories.Input)
+            {
+                CreateNewArchivePath(value);
+            }
+
+            foreach (string value in _appSettingsManager.GetAppSettings().Config.Extensions)
+            {
+                CreateNewArchiveExtension(value);
             }
         }
+        #endregion
 
-        private void RemovePathButtonClick(object sender, RoutedEventArgs e)
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
         {
-            Button button = (Button)sender;
-            Grid grid = (Grid)button.Parent;
-            Test.Children.Remove(grid) ;
+            FrameworkElement element = (FrameworkElement)e.OriginalSource;
+
+            if (txtBox == element || popup == element || element.Parent == popup)
+                return;
+
+            popup.IsOpen = !string.IsNullOrEmpty(txtBox.Text);
+
+            //TODO: finish adding archive extension using popup
         }
     }
 }
