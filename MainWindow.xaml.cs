@@ -226,6 +226,9 @@ namespace AutoArchiver
                 _appSettingsManager.GetAppSettings().Config.Extensions.Add(extension);
             }
 
+            _appSettingsManager.GetAppSettings().Config.ArchiveTime = int.Parse(ArchiveTimeTextbox.Text);
+            _appSettingsManager.GetAppSettings().Config.PathPattern = ArchiveDirectoriesPatternTextBox.Text;
+
             _appSettingsManager.SaveAppSettings();
         }
 
@@ -240,6 +243,9 @@ namespace AutoArchiver
             {
                 CreateNewArchiveExtension(extension);
             }
+
+            ArchiveTimeTextbox.Text = _appSettingsManager.GetAppSettings().Config.ArchiveTime.ToString();
+            ArchiveDirectoriesPatternTextBox.Text = _appSettingsManager.GetAppSettings().Config.PathPattern;
         }
         #endregion
     }
