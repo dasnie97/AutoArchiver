@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:AutoArchiver"
         mc:Ignorable="d"
-        Title="AutoArchiver" Height="500" Width="800" Loaded="Window_Loaded" GotFocus="Window_GotFocus">
+        Title="AutoArchiver" Height="500" Width="800" Loaded="Window_Loaded">
 
     <Border Padding="10">
 
@@ -75,13 +75,8 @@
 
                             <Button x:Name="AddExtensionButton" FontSize="17" Width="70" Height="28" Grid.Column="2" Grid.Row="0" Content="Dodaj" Click="AddExtensionButton_Click"/>
 
-                            <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3">
+                            <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0 5 0 0">
                                 <StackPanel x:Name="ArchiveExtensionsStackPanel">
-                                    <Popup x:Name="popup"  PlacementTarget="{Binding ElementName=AddExtensionButton}" Width="50" Height="25">
-                                        <Border BorderBrush="Black" BorderThickness="2" Background="AliceBlue">
-                                            <TextBox x:Name="txtBox" VerticalAlignment="Center"/>
-                                        </Border>
-                                    </Popup>
                                 </StackPanel>
 
                             </ScrollViewer>
@@ -102,7 +97,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
-                                <RowDefinition Height="30.67"/>
+                                <RowDefinition />
                             </Grid.RowDefinitions>
 
                             <TextBlock Padding="1" FontSize="13" Text="Archiwizuj pliki starsze niż" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
