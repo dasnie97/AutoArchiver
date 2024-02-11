@@ -9,6 +9,7 @@ public class Config
     public int ArchiveTime { get; set; }
     public List<string> ArchivePathOptions { get; set; }
     public string ArchivePath { get; set; }
+    public string PathPattern { get; set; }
 }
 
 public class Directories
