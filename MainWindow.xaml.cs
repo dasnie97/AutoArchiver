@@ -56,8 +56,12 @@ namespace AutoArchiver
 
         private void AddExtensionButton_Click(object sender, RoutedEventArgs e)
         {
-            popup.IsOpen = true;
-            //CreateNewArchiveExtension("Ext");
+            Extension extension = new Extension()
+            {
+                Name = "new",
+                IsActive = true
+            };
+            CreateNewArchiveExtension(extension);
         }
 
         private void FileExplorerButtonClick(object sender, RoutedEventArgs e)
@@ -87,6 +91,7 @@ namespace AutoArchiver
         private void SaveSettingsButton_Click(object sender, RoutedEventArgs e)
         {
             SaveConfigurationToAppSettings();
+            MessageBox.Show("Pomyślnie zapisano ustawienia.");
         }
 
         #endregion
@@ -157,21 +162,27 @@ namespace AutoArchiver
             ArchivePathsStackPanel.Children.Add(grid);
         }
 
-        private void CreateNewArchiveExtension(string extension)
+        private void CreateNewArchiveExtension(Extension extension)
         {
             Grid grid = new Grid();
 
-            ColumnDefinition pathColumn = new ColumnDefinition();
+            ColumnDefinition checkboxColumn = new ColumnDefinition();
+            ColumnDefinition textboxColumn = new ColumnDefinition();
             ColumnDefinition removeExtensionCheckboxColumn = new ColumnDefinition();
 
-            pathColumn.Width = new GridLength(5, GridUnitType.Star);
-            removeExtensionCheckboxColumn.Width = new GridLength(1, GridUnitType.Star);
+            checkboxColumn.Width = new GridLength(1, GridUnitType.Star);
+            textboxColumn.Width = new GridLength(6, GridUnitType.Star);
+            removeExtensionCheckboxColumn.Width = new GridLength(2, GridUnitType.Star);
 
-            grid.ColumnDefinitions.Add(pathColumn);
+            grid.ColumnDefinitions.Add(checkboxColumn);
+            grid.ColumnDefinitions.Add(textboxColumn);
             grid.ColumnDefinitions.Add(removeExtensionCheckboxColumn);
 
             CheckBox extenstionCheckBox = new CheckBox();
-            extenstionCheckBox.Content = extension;
+            extenstionCheckBox.IsChecked = extension.IsActive;
+            
+            TextBox extensionTextbox = new TextBox();
+            extensionTextbox.Text = extension.Name;
 
             Button removeExtensionButton = new Button();
             removeExtensionButton.Width = 30;
@@ -180,10 +191,12 @@ namespace AutoArchiver
             removeExtensionButton.Click += RemoveGrid;
 
             grid.Children.Add(extenstionCheckBox);
+            grid.Children.Add(extensionTextbox);
             grid.Children.Add(removeExtensionButton);
 
             Grid.SetColumn(extenstionCheckBox, 0);
-            Grid.SetColumn(removeExtensionButton, 1);
+            Grid.SetColumn(extensionTextbox, 1);
+            Grid.SetColumn(removeExtensionButton, 2);
 
             ArchiveExtensionsStackPanel.Children.Add(grid);
         }
@@ -202,7 +215,15 @@ namespace AutoArchiver
             foreach (Grid grid in ArchiveExtensionsStackPanel.Children)
             {
                 CheckBox archiveCheckBox = (CheckBox)grid.Children[0];
-                _appSettingsManager.GetAppSettings().Config.Extensions.Add((string)archiveCheckBox.Content);
+                TextBox archiveTextbox = (TextBox)grid.Children[1];
+
+                Extension extension = new Extension()
+                {
+                    Name = archiveTextbox.Text,
+                    IsActive = archiveCheckBox.IsChecked
+                };
+
+                _appSettingsManager.GetAppSettings().Config.Extensions.Add(extension);
             }
 
             _appSettingsManager.SaveAppSettings();
@@ -215,23 +236,11 @@ namespace AutoArchiver
                 CreateNewArchivePath(value);
             }
 
-            foreach (string value in _appSettingsManager.GetAppSettings().Config.Extensions)
+            foreach (Extension extension in _appSettingsManager.GetAppSettings().Config.Extensions)
             {
-                CreateNewArchiveExtension(value);
+                CreateNewArchiveExtension(extension);
             }
         }
         #endregion
-
-        private void Window_GotFocus(object sender, RoutedEventArgs e)
-        {
-            FrameworkElement element = (FrameworkElement)e.OriginalSource;
-
-            if (txtBox == element || popup == element || element.Parent == popup)
-                return;
-
-            popup.IsOpen = !string.IsNullOrEmpty(txtBox.Text);
-
-            //TODO: finish adding archive extension using popup
-        }
     }
 }

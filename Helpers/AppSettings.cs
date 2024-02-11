@@ -5,7 +5,7 @@ namespace AutoArchiver.Helpers;
 public class Config
 {
     public Directories Directories { get; set; }
-    public List<string> Extensions { get; set; }
+    public List<Extension> Extensions { get; set; }
     public int ArchiveTime { get; set; }
     public List<string> ArchivePathOptions { get; set; }
     public string ArchivePath { get; set; }
@@ -14,6 +14,12 @@ public class Config
 public class Directories
 {
     public List<string> Input { get; set; }
+}
+
+public class Extension
+{
+    public string Name { get; set; }
+    public bool? IsActive { get; set; }
 }
 
 public class MinimumLevel
