@@ -12,8 +12,8 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+                <RowDefinition Height="3*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
 
@@ -32,7 +32,7 @@
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="5*"/>
                     </Grid.RowDefinitions>
 
                     <TextBlock Padding="3" FontSize="13" Text="Archiwizowane ścieżki" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
@@ -69,6 +69,7 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
                             
                             <TextBlock Padding="1" FontSize="13" Text="Archiwizowane rozszerzenia" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
@@ -98,13 +99,13 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition />
+                                <RowDefinition />
                             </Grid.RowDefinitions>
 
                             <TextBlock Padding="1" FontSize="13" Text="Archiwizuj pliki starsze niż" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
-                            <TextBox Margin="5 0" FontSize="17" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" HorizontalContentAlignment="Center" Width="50" Height="25" HorizontalAlignment="Left">
-                            30
+                            <TextBox x:Name="ArchiveTimeTextbox" FontSize="13" Margin="8 0" Grid.Column="0" Grid.Row="1" HorizontalContentAlignment="Center" Width="50" Height="25" HorizontalAlignment="Right">
                             </TextBox>
-                            <TextBlock Padding="59 3" FontSize="17" Text="dni" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" />
+                            <TextBlock FontSize="14" Text="dni" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Center"/>
 
                         </Grid>
                     </Border>
@@ -123,14 +124,13 @@
                                 <RowDefinition/>
                                 <RowDefinition/>
                                 <RowDefinition/>
+                                <RowDefinition/>
                             </Grid.RowDefinitions>
 
-                            <TextBlock Padding="1" FontSize="13" Text="Twórz archiwa zgodnie z" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+                            <TextBlock Padding="1" FontSize="13" Text="Twórz archiwa zgodnie ze wzorem:" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"/>
 
-                            <ComboBox FontSize="17" SelectedIndex="0" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2">
-                                <ComboBoxItem>Tygodniem</ComboBoxItem>
-                                <ComboBoxItem>Miesiącem</ComboBoxItem>
-                            </ComboBox>
+                            <TextBox x:Name="ArchiveDirectoriesPatternTextBox" FontSize="13" Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="5 3">
+                            </TextBox>
 
                         </Grid>
                     </Border>
