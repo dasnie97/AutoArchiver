@@ -1,5 +1,4 @@
 ﻿using AutoArchiver.Helpers;
-using AutoArchiver.Windows;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -248,5 +247,7 @@ namespace AutoArchiver
             ArchiveDirectoriesPatternTextBox.Text = _appSettingsManager.GetAppSettings().Config.PathPattern;
         }
         #endregion
+
+        //TODO see if can bind anything to see how it works
     }
 }
