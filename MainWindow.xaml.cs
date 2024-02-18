@@ -2,11 +2,15 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace AutoArchiver
 {
@@ -139,15 +143,21 @@ namespace AutoArchiver
             pathTextBox.IsReadOnly = true;
 
             Button fileExplorerButton = new Button();
+            Image fileExplorerButtonImage = new Image();
+            fileExplorerButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\edit.png"));
+            fileExplorerButton.Content = fileExplorerButtonImage;
+            fileExplorerButton.Cursor = Cursors.Hand;
             fileExplorerButton.Width = 40;
             fileExplorerButton.Height = 20;
-            fileExplorerButton.Content = "Edytuj";
             fileExplorerButton.Click += FileExplorerButtonClick;
 
             Button removePathButton = new Button();
+            Image removePathButtonImage = new Image();
+            removePathButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\remove.png"));
+            removePathButton.Content = removePathButtonImage;
+            removePathButton.Cursor = Cursors.Hand;
             removePathButton.Width = 40;
             removePathButton.Height = 20;
-            removePathButton.Content = "Usun";
             removePathButton.Click += RemoveGrid;
 
             grid.Children.Add(pathTextBox);
@@ -184,9 +194,12 @@ namespace AutoArchiver
             extensionTextbox.Text = extension.Name;
 
             Button removeExtensionButton = new Button();
-            removeExtensionButton.Width = 30;
-            removeExtensionButton.Height = 19;
-            removeExtensionButton.Content = "Usun";
+            Image removePathButtonImage = new Image();
+            removePathButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\remove.png"));
+            removeExtensionButton.Content = removePathButtonImage;
+            removeExtensionButton.Cursor = Cursors.Hand;
+            removeExtensionButton.Width = 40;
+            removeExtensionButton.Height = 20;
             removeExtensionButton.Click += RemoveGrid;
 
             grid.Children.Add(extenstionCheckBox);
@@ -247,7 +260,5 @@ namespace AutoArchiver
             ArchiveDirectoriesPatternTextBox.Text = _appSettingsManager.GetAppSettings().Config.PathPattern;
         }
         #endregion
-
-        //TODO see if can bind anything to see how it works
     }
 }
