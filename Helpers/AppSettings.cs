@@ -7,8 +7,6 @@ public class Config
     public Directories Directories { get; set; }
     public List<Extension> Extensions { get; set; }
     public int ArchiveTime { get; set; }
-    public List<string> ArchivePathOptions { get; set; }
-    public string ArchivePath { get; set; }
     public string PathPattern { get; set; }
 }
 
