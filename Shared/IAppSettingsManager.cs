@@ -1,4 +1,4 @@
-﻿namespace AutoArchiver.Helpers;
+﻿namespace AutoArchiver.Shared;
 
 public interface IAppSettingsManager
 {

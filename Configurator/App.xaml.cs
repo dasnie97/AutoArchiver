@@ -3,7 +3,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System.Windows;
 using Serilog;
-using AutoArchiver.Helpers;
+using AutoArchiver.Shared;
 
 namespace AutoArchiver
 {
