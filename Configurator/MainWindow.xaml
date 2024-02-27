@@ -40,7 +40,7 @@
                         <Button.Background>
                             <SolidColorBrush Color="#FFDDDDDD" Opacity="0.1"/>
                         </Button.Background>
-                        <Image Source="C:\Users\Damian\source\repos\AutoArchiver\Resources\plus1.png"/>
+                        <Image Source="C:\Users\Damian\source\repos\AutoArchiver\Configurator\Resources\plus1.png"/>
                     </Button>
 
                     <ScrollViewer Grid.Row="1" Grid.ColumnSpan="7">
@@ -83,7 +83,7 @@
                                 <Button.Background>
                                     <SolidColorBrush Color="#FFDDDDDD" Opacity="0.1"/>
                                 </Button.Background>
-                                <Image Source="C:\Users\Damian\source\repos\AutoArchiver\Resources\plus1.png"/>
+                                <Image Source="C:\Users\Damian\source\repos\AutoArchiver\Configurator\Resources\plus1.png"/>
                             </Button>
 
                             <ScrollViewer Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0 5 0 0">
