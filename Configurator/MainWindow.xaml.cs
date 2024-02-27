@@ -143,18 +143,14 @@ namespace AutoArchiver
             pathTextBox.IsReadOnly = true;
 
             Button fileExplorerButton = new Button();
-            Image fileExplorerButtonImage = new Image();
-            fileExplorerButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\edit.png"));
-            fileExplorerButton.Content = fileExplorerButtonImage;
+            fileExplorerButton.Content = (Image)FindResource("Edit");
             fileExplorerButton.Cursor = Cursors.Hand;
             fileExplorerButton.Width = 40;
             fileExplorerButton.Height = 20;
             fileExplorerButton.Click += FileExplorerButtonClick;
 
             Button removePathButton = new Button();
-            Image removePathButtonImage = new Image();
-            removePathButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\remove.png"));
-            removePathButton.Content = removePathButtonImage;
+            removePathButton.Content = (Image)FindResource("Remove");
             removePathButton.Cursor = Cursors.Hand;
             removePathButton.Width = 40;
             removePathButton.Height = 20;
@@ -195,7 +191,7 @@ namespace AutoArchiver
 
             Button removeExtensionButton = new Button();
             Image removePathButtonImage = new Image();
-            removePathButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Resources\\remove.png"));
+            removePathButtonImage.Source = new BitmapImage(new Uri("C:\\Users\\Damian\\source\\repos\\AutoArchiver\\Configurator\\Resources\\remove.png"));
             removeExtensionButton.Content = removePathButtonImage;
             removeExtensionButton.Cursor = Cursors.Hand;
             removeExtensionButton.Width = 40;
