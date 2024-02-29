@@ -14,6 +14,7 @@ static HostApplicationBuilder CreateApplicationHostBuilder()
     builder.Configuration.AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
     builder.Services.AddHostedService<Worker>();
     builder.Services.AddTransient<IAppSettingsManager, AppSettingsManager>();
+    builder.Services.AddTransient<IArchiver, Archiver>();
     builder.Services.AddSerilog(config =>
     {
         config.ReadFrom.Configuration(builder.Configuration);
